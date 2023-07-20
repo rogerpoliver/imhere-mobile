@@ -16,6 +16,12 @@ export function AddAttendee({ onAdd }: AddAttendeeProps) {
     }
   }
 
+  function handleKeyPress(event: any) {
+    if (event.nativeEvent.key === "Enter") {
+      handleAddAttendee();
+    }
+  }
+
   return (
     <View style={styles.form}>
       <TextInput
@@ -24,6 +30,7 @@ export function AddAttendee({ onAdd }: AddAttendeeProps) {
         placeholderTextColor="#6b6b6b"
         value={inputValue}
         onChangeText={setInputValue}
+        onKeyPress={handleKeyPress}
       />
       <TouchableOpacity style={styles.button} onPress={handleAddAttendee}>
         <Text style={styles.buttonText}>+</Text>

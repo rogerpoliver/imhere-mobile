@@ -1,16 +1,20 @@
-import { Attendee } from "../../components/Attendee";
-import { Text, View, FlatList, Alert } from "react-native";
-import { styles } from "./styles";
-import { AddAttendee } from "../../components/AddAttendee";
 import { useState } from "react";
+import { Text, View, FlatList } from "react-native";
+// import { Alert } from "react-native";
+import { Attendee } from "../../components/Attendee";
+import { AddAttendee } from "../../components/AddAttendee";
+import { alert } from "../../utils/alert"
+import { styles } from "./styles";
+import { date } from "../../utils/date"
 
 export default function Home() {
   const [attendees, setAttendees] = useState<string[]>([]);
 
   function addAttendee(name: string) {
     if (attendees.includes(name)) {
-      return Alert.alert(
-        "Participante já existe",
+      // return Alert.alert( 
+        return alert(
+         "Participante já existe",
         `Você não pode adicionar outro participante chamado ${name}`
       );
     }
@@ -18,13 +22,13 @@ export default function Home() {
   }
 
   function removeAttendee(name: string) {
-    setAttendees(attendees.filter((attendeeName) => attendeeName !== name));
+    setAttendees(prevState => prevState.filter((attendeeName) => attendeeName !== name));
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Aniversário do Felipe</Text>
-      <Text style={styles.eventDate}>Quarta, 24 de Maio de 2023</Text>
+      <Text style={styles.eventName}>Evento</Text>
+      <Text style={styles.eventDate}>{date}</Text>
       <AddAttendee onAdd={addAttendee} />
       <FlatList
         data={attendees}
